@@ -25,13 +25,14 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/public/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5381944">
-              <caret line="355" column="13" selection-start-line="355" selection-start-column="13" selection-end-line="355" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.79881656">
+              <caret line="552" column="4" selection-start-line="552" selection-start-column="4" selection-end-line="552" selection-end-column="4" />
               <folding>
                 <element signature="n#!!block;n#show_error#0" expanded="false" />
-                <marker date="1460575603188" expanded="true" signature="8505:8522" placeholder="..." />
-                <marker date="1460575603188" expanded="true" signature="9199:9216" placeholder="..." />
-                <marker date="1460575603188" expanded="true" signature="17193:17244" placeholder="..." />
+                <marker date="1460577224236" expanded="true" signature="8505:8522" placeholder="..." />
+                <marker date="1460577224236" expanded="true" signature="9199:9216" placeholder="..." />
+                <marker date="1460577224236" expanded="true" signature="10982:10999" placeholder="..." />
+                <marker date="1460577224236" expanded="true" signature="14409:14460" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -98,8 +99,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/templates/gap_filler_tool/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.333333">
-              <caret line="103" column="79" selection-start-line="103" selection-start-column="79" selection-end-line="103" selection-end-column="79" />
+            <state vertical-scroll-proportion="-18.583334">
+              <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -117,8 +118,8 @@
         <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/wps_utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/app.py" />
-        <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/templates/gap_filler_tool/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/utilities.py" />
+        <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/templates/gap_filler_tool/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/gap_filler_tool/public/js/main.js" />
       </list>
     </option>
@@ -131,10 +132,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="560" />
-    <option name="y" value="56" />
-    <option name="width" value="1025" />
-    <option name="height" value="740" />
+    <option name="x" value="1653" />
+    <option name="y" value="-4" />
+    <option name="width" value="1547" />
+    <option name="height" value="840" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -472,7 +473,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="560" y="56" width="1025" height="740" extended-state="0" />
+    <frame x="1653" y="-4" width="1547" height="840" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -568,9 +569,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#show_error#0" expanded="false" />
-            <marker date="1460575603188" expanded="true" signature="8505:8522" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="9199:9216" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="17193:17244" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="8505:8522" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="9199:9216" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="10982:10999" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="14409:14460" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -653,9 +655,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#show_error#0" expanded="false" />
-            <marker date="1460575603188" expanded="true" signature="8505:8522" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="9199:9216" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="17193:17244" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="8505:8522" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="9199:9216" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="10982:10999" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="14409:14460" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -720,14 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/templates/gap_filler_tool/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.333333">
-          <caret line="103" column="79" selection-start-line="103" selection-start-column="79" selection-end-line="103" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.3142858">
@@ -756,15 +751,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/templates/gap_filler_tool/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.583334">
+          <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/gap_filler_tool/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5381944">
-          <caret line="355" column="13" selection-start-line="355" selection-start-column="13" selection-end-line="355" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.79881656">
+          <caret line="552" column="4" selection-start-line="552" selection-start-column="4" selection-end-line="552" selection-end-column="4" />
           <folding>
             <element signature="n#!!block;n#show_error#0" expanded="false" />
-            <marker date="1460575603188" expanded="true" signature="8505:8522" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="9199:9216" placeholder="..." />
-            <marker date="1460575603188" expanded="true" signature="17193:17244" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="8505:8522" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="9199:9216" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="10982:10999" placeholder="..." />
+            <marker date="1460577224236" expanded="true" signature="14409:14460" placeholder="..." />
           </folding>
         </state>
       </provider>

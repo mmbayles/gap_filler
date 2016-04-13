@@ -341,19 +341,7 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
 
             //end new table
 
-            if (number == number1-1)//checks to see if all the data is loaded before displaying
-            {
-                $(window).resize();
-                if(title ==1){
-                    chart.setTitle({ text: "CUAHSI Gap Filler Tool*" });
-                }
-                else{
-                    chart.setTitle({ text: "CUAHSI Gap Filler Tool" });
-                }
 
-                finishloading();
-
-            }
 
 
             $(window).resize();//This fixes an error where the grid lines are misdrawn when legend layout is set to vertical
@@ -366,7 +354,7 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
     $.ajax({
         url: wps_url,
         success: function(gap) {
-
+            number3 = number +1
             console.log(gap.data)
             // here we must check if the WPS execution was successful
 
@@ -375,11 +363,38 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
                 id: res_id +"gap",
                 zIndex:1,
                 name: 'Gap Filled',
-                data: gap.data
+                data: gap.data,
+                color:'#FF0000'
             }
 
             // this part seems to be taking lots of time ...
             chart.addSeries(series);
+
+
+
+            // //chart.setTitle({ text: "CUAHSI Data Series Viewer" });
+            //var legend = "<div style='text-align:center' '><input class = 'checkbox' id ="+number3+" name =gap data-resid ="+res_id
+            //+ " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
+            //
+            //var dataset = {legend:legend}
+            //
+            //var table = $('#example2').DataTable();
+            //table.row.add(dataset).draw();
+
+             if (number == number1-1)//checks to see if all the data is loaded before displaying
+            {
+                $(window).resize();
+                if(title ==1){
+                    chart.setTitle({ text: "CUAHSI Gap Filler Tool*" });
+                }
+                else{
+                    chart.setTitle({ text: "CUAHSI Gap Filler Tool" });
+                }
+                 $(window).resize();
+                finishloading();
+
+            }
+
         }
         })
 
@@ -430,103 +445,6 @@ var popupDiv = $('#welcome-popup');
     //end new table
 $(document).ready(function (callback) {
     var res_id = find_query_parameter("res_id");
-
-
-    var table = $('#example4').DataTable( {
-        //destroy: true,
-        //"bDestroy": true,
-        //bRetrieve: true ,
-        //"createdRow":function(row,data,dataIndex)
-        //{
-        //    //var chart = $('#ts-chart').highcharts();
-        //    //console.log("created")
-        //    //$('td',row).eq(0).css("backgroundColor", chart.series[number].color)
-        //    // $('td',row).eq(1).each( function()
-        //    // {
-        //    //    var sTitle;
-        //    //    sTitle = "Click here to see more data"
-        //    //    this.setAttribute( 'title', sTitle );
-        //    //    } );
-        //
-        //    //    var table = $('#example2').DataTable()
-        //    //    table.$('td').tooltip( {
-        //    //         selector: '[data-toggle="tooltip"]',
-        //    //        container: 'body',
-        //    //        "delay": 0,
-        //    //        "track": true,
-        //    //        "fade": 100
-        //    //} );
-        //
-        //
-        //},
-
-        //data: data,
-        //"columns":
-        //    [
-        //    {   "className": "legend",
-        //        "data": "legend" },
-        //    {
-        //        "className":      'details-control',
-        //        "orderable":      false,
-        //        "data":           null,
-        //        "defaultContent": ''
-        //    },
-        //    { "data": "organization" },
-        //    { "data": "name" },
-        //    { "data": "variable" },
-        //    { "data": "unit" },
-        //    { "data": "samplemedium" },
-        //    { "data": "count" },
-        //
-        //
-        //    //{"data":"download"}
-        //    ],
-        //"order": [[1, 'asc']]
-    } );
-    // Add event listener for opening and closing details
-    //$('#example2 tbody').on('click', 'td.details-control', function () {
-    //
-    //    var tr = $(this).closest('tr');
-    //    var row = table.row( tr );
-    //    // console.log("fromattng!!!!!!!!!!!!!!!!")
-    //    console.log(row.child.isShown())
-    //    console.log("running")
-    //    if ( row.child.isShown() ==true )
-    //    {
-    //        // This row is already open - close it
-    //        row.child.hide();
-    //        tr.removeClass('shown');
-    //    }
-    //    else
-    //    {
-    //        // Open this row
-    //        // console.log("afasfdfdsssfdfafdssafsddfsfdf!!!!!!!!!!!!!!!!")
-    //        row.child( format(row.data()) ).show();
-    //        box(row.data().boxplot_count);
-    //        var series =
-    //        {
-    //            name:  'Site:'+row.data().name+
-    //            ' Variable:'+row.data().variable,
-    //            data: [],
-    //            groupPadding:0,
-    //        }
-    //        // add the time series to the chart
-    //        series.data = [row.data().boxplot.map(Number)];
-    //
-    //        var name_plot = '#container'+row.data().boxplot_count
-    //
-    //        var chart = $(name_plot).highcharts();
-    //        chart.setTitle({ text: row.data().name });
-    //        chart.yAxis[0].setTitle({ text: row.data().variable + ' (' + row.data().unit+')' })
-    //        chart.xAxis[0].setTitle({text:'Mean: '+row.data().mean +' Median: '+row.data().median+
-    //        ' Maximum: '+row.data().max +'  Minimum : '+row.data().min})
-    //        chart.addSeries(series);
-    //        tr.addClass('shown');
-    //    }
-    //} );
-
-
-
     if (res_id == null) {
         if (document.referrer == "https://apps.hydroshare.org/apps/") {
             $('#extra-buttons').append('<a class="btn btn-default btn" href="https://apps.hydroshare.org/apps/">Return to HydroShare Apps</a>');
@@ -632,7 +550,7 @@ function finishloading(callback)
     $('#ts-chart').show();
     $('#loading').hide();
     $('#multiple_units').show();
-
+    $(window).resize()
 }
 function addingseries(unit_off){
      var res_id = find_query_parameter("res_id");
