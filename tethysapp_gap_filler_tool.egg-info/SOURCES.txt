@@ -6,6 +6,9 @@ tethysapp/gap_filler_tool/controllers.py
 tethysapp/gap_filler_tool/handoff.py
 tethysapp/gap_filler_tool/init_stores.py
 tethysapp/gap_filler_tool/model.py
+tethysapp/gap_filler_tool/utilities.py
+tethysapp/gap_filler_tool/waterml.py
+tethysapp/gap_filler_tool/wps_utilities.py
 tethysapp_gap_filler_tool.egg-info/PKG-INFO
 tethysapp_gap_filler_tool.egg-info/SOURCES.txt
 tethysapp_gap_filler_tool.egg-info/dependency_links.txt

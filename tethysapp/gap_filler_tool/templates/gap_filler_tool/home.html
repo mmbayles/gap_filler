@@ -5,6 +5,25 @@
 {%block title%}
 CUAHSI Gap Filler Tool
 {%endblock%}
+{% block app_navigation_items %}
+<div>
+    Please choose a method to fill the gaps in the data series.
+</div>
+
+<form action="">
+  <input type="radio" name="gap_function" value="linear" checked> Linear<br>
+  <input type="radio" name="gap_function" value="spline"> Spline<br>
+
+</form>
+<p></p>
+<p></p>
+<div>
+ <button type="button" onclick='gap_filler()'class="btn btn-primary">Run</button>
+    <p></p>
+<p></p>
+ <button type="button" onclick='clear_all()'class="btn btn-danger">Delete Gap Filled Series</button>
+</div>
+{%endblock%}
 
 {% block app_content_wrapper_override %}
 <!-- Modal  -->
@@ -102,42 +121,6 @@ CUAHSI Gap Filler Tool
         </table>
    <a class="r-script" href="/scripts/">View R Script for the correlation plot</a>
 </div>
-
-
-<!--<table id="example1" class="display" cellspacing="0" width="100%">-->
-        <!--<thead>-->
-            <!--<tr>-->
-                <!--<th></th>-->
-                <!--<th>Name</th>-->
-                <!--<th>Position</th>-->
-                <!--<th>Office</th>-->
-                <!--<th>Salary</th>-->
-            <!--</tr>-->
-        <!--</thead>-->
-        <!--<tfoot>-->
-            <!--<tr>-->
-                <!--<th></th>-->
-                <!--<th>Name</th>-->
-                <!--<th>Position</th>-->
-                <!--<th>Office</th>-->
-                <!--<th>Salary</th>-->
-            <!--</tr>-->
-        <!--</tfoot>-->
-    <!--</table>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--<a class="r-script" href="/scripts/">View R Script for the correlation plot</a>-->

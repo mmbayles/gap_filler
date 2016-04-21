@@ -93,6 +93,7 @@ def parse_1_0_and_1_1(root):
             # iterate through xml document and read all values
             print "xml parse***********************************************888"
             print datetime.now()
+
             for element in root.iter():
 
                 bracket_lock = -1
@@ -101,11 +102,18 @@ def parse_1_0_and_1_1(root):
                     tag = element.tag[bracket_lock+1:]     # Takes only actual tag, no namespace
 
                 if 'value' == tag:
-                    my_times.append(element.attrib['dateTime'])
+                    try:
+                        my_times.append(element.attrib['dateTimeUTC'])
+                    except:
+                        my_times.append(element.attrib['dateTime'])
+                    try:
+                        quality= element.attrib['qualityControlLevel']
+                    except:
+                        quality1 =''
                     my_values.append(element.text)
                 else:
                     # in the xml there is a unit for the value, then for time. just take the first
-                    if 'unitName' == tag:
+                    if 'unitName' == tag or 'units' ==tag:
                         if not unit_is_set:
                             units = element.text
                             unit_is_set = True
@@ -115,11 +123,11 @@ def parse_1_0_and_1_1(root):
                         site_name = element.text
                     if 'variableName' == tag:
                         variable_name = element.text
-                    if 'organization'==tag:
+                    if 'organization'==tag or 'Organization'==tag:
                         organization = element.text
                     if 'definition' == tag:
                         quality = element.text
-                    if 'methodDescription' == tag:
+                    if 'methodDescription' == tag or 'MethodDescription'==tag:
                         method = element.text
                     if 'dataType' == tag:
                         datatype = element.text
@@ -127,11 +135,11 @@ def parse_1_0_and_1_1(root):
                         valuetype = element.text
                     if "sampleMedium" == tag:
                         samplemedium = element.text
-                    if "timeSupport"== tag:
+                    if "timeSupport"== tag or"timeInterval" ==tag:
                         timesupport =element.text
-                    if"unitName"== tag:
+                    if"unitName"== tag or "UnitName"==tag:
                         timeunit =element.text
-                    if"sourceDescription"== tag:
+                    if"sourceDescription"== tag or "SourceDescription"==tag:
                         sourcedescription =element.text
 
             # Measuring the WaterML processing time ...
@@ -403,11 +411,10 @@ def read_error_file(xml_file):
 
 
 def unzip_waterml(request, res_id):
-    print "create water ml"
-    print datetime.now()
+
     # this is where we'll unzip the waterML file to
     temp_dir = get_workspace()
-    print temp_dir
+
     # get the URL of the remote zipped WaterML resource
     src = 'test'
     print os.getcwd()
@@ -415,8 +422,9 @@ def unzip_waterml(request, res_id):
         os.makedirs(temp_dir+"/id")
 
     if 'cuahsi-wdc'in res_id:
-        url_zip = 'http://bcc-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
-
+        # url_zip = 'http://bcc-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
+        url_zip = 'http://qa-webclient-solr.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
+        print url_zip
     else:
         url_zip = 'http://' + request.META['HTTP_HOST'] + '/apps/data-cart/showfile/'+res_id
     r = requests.get(url_zip, verify=False)

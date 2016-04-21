@@ -38,9 +38,6 @@ def chart_data(request, res_id):
     else:
         # parses the WaterML to a chart data object
         data_for_chart = utilities.Original_Checker(file_path)
-
-        print datetime.now()
-
     return JsonResponse(data_for_chart)
 
 # home page controller
@@ -65,5 +62,9 @@ def r_script(request, res_ids):
 
     resp = HttpResponse(output_text, content_type="text/plain; charset=utf-8")
     return resp
-def wps(request, res_ids):
-    return wps_utilities.run_wps(res_ids)
+def wps(request, res_ids,gap):
+
+    return wps_utilities.run_wps(res_ids,gap)
+def gap_function(request,res_ids):
+
+    return (res_ids)

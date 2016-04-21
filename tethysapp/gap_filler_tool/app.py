@@ -12,6 +12,7 @@ class GapFillerTool(TethysAppBase):
     package = 'gap_filler_tool'
     root_url = 'gap-filler-tool'
     color = '#1abc9c'
+    # wps_url = 'http://localhost:8282/wps/'
     wps_url = 'http://appsdev.hydroshare.org:8282/wps/'
         
     def url_maps(self):
@@ -33,12 +34,15 @@ class GapFillerTool(TethysAppBase):
                            controller='gap_filler_tool.controllers.chart_data'),
 
                     UrlMap(name='wps',
-                           url='wps/{res_ids}',
+                           url='wps/{res_ids}/{gap}',
                            controller='gap_filler_tool.controllers.wps'),
 
                     UrlMap(name='r-script',
                            url='r-script/{res_ids}/gap-filler-tool.R',
                            controller='gap_filler_tool.controllers.r_script'),
+                    UrlMap(name='gap-function',
+                           url='gap-function/',
+                           controller='gap_filler_tool.controllers.gap_function'),
 
         )
 

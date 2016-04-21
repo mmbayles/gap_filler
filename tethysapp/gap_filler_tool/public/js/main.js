@@ -1,26 +1,26 @@
 function find_query_parameter(name) {
-  url = location.href;
-  //name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-  var regexS = "[\\?&]"+name+"=([^&#]*)";
-  var regex = new RegExp( regexS );
-  var results = regex.exec( url );
-  return results == null ? null : results[1];
+    url = location.href;
+    //name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
 }
 // here we set up the configuration of the highCharts chart
 var data = [];
 var unit_tracker =[];
 var counter = 0;
-var unit1=null
+var unit1=null;
 var unit2=null;
 var resid_on = null;
 counter1 =[];
 // here we set up the configuration of the highCharts chart
 var chart_options = {
-	chart: {
+    chart: {
 
 
-		zoomType: 'x',
-		resetZoomButton: {
+        zoomType: 'x',
+        resetZoomButton: {
             position: {
                 align: 'left', // by default
                 verticalAlign: 'bottom', // by default
@@ -28,7 +28,7 @@ var chart_options = {
                 y: 40
             }
         }
-	},
+    },
     exporting:{
         buttons:{
             contextButton:{
@@ -48,27 +48,27 @@ var chart_options = {
         sourceWidth: 1200,
         sourceHeight: 600
     },
-	title: {
-		text: ''
-	},
-	xAxis: {
-		type: 'datetime',
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'datetime',
         lineWidth:2,
         lineColor: 'lightgray'
-	},
-	yAxis: [{
-                title: {
-                    text: 'Data Value',
-                    style: {
-                    color: Highcharts.getOptions().colors[1],
-                        fontSize:'15px'
-                }
+    },
+    yAxis: [{
+        title: {
+            text: 'Data Value',
+            style: {
+                color: Highcharts.getOptions().colors[1],
+                fontSize:'15px'
+            }
 
-                },
-                lineWidth:2,
-                lineColor: 'lightgray',
+        },
+        lineWidth:2,
+        lineColor: 'lightgray',
 
-	        },
+    },
         {
             // Secondary yAxis
             gridLineWidth: 1,
@@ -82,46 +82,46 @@ var chart_options = {
 
             lineWidth:2,
 
-        opposite: true
+            opposite: true
         }
-        ],
-	legend: {
-	},
+    ],
+    legend: {
+    },
 
 
 
-	plotOptions: {
-		line: {
-			color: Highcharts.getOptions().colors[90],
-			marker: {
-				radius: 2
-			},
+    plotOptions: {
+        line: {
+            color: Highcharts.getOptions().colors[90],
+            marker: {
+                radius: 2
+            },
             size:'100%',
-			lineWidth: 1,
-			states: {
-				hover: {
-					lineWidth: 1
-				}
-			},
+            lineWidth: 1,
+            states: {
+                hover: {
+                    lineWidth: 1
+                }
+            },
 
-		}
-	}
+        }
+    }
 };
 
 // shows an error message in the chart title
 function show_error(chart, error_message) {
 
-     $('#loading').hide();
+    $('#loading').hide();
     console.log(error_message);
 
     $('#error-message').text(error_message);
 
 }
 
-var number2 = -1
+var number2 = -1;
 var unit_list =[];
-var title = 0
-function add_series_to_chart(chart,res_id,number1,unit_off) {
+var title = 0;
+function add_series_to_chart(chart,res_id,number1) {
     current_url = location.href;
     index = current_url.indexOf("gap-filler-tool");
     base_url = current_url.substring(0, index);
@@ -129,7 +129,7 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
     // the res_id can contain multiple IDs separated by comma
 
     // URL to get the WPS result (used for the scatter plot chart)
-    var wps_url = base_url + 'gap-filler-tool/wps/' + res_id + '/';
+
 
     // URL to get the script link
     var R_script_url = base_url + 'gap-filler-tool/r-script/' + res_id + '/' + 'gap-filler-tool.R';
@@ -146,74 +146,25 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
             // first of all check for the status
             var status = json.status;
             if (status !== 'success') {
-                show_error(chart, "Error loading time series from " + res_id + ": " + status)
+                show_error(chart, "Error loading time series from " + res_id + ": " + status);
                 $('#loading').hide();
                 return;
             }
-               // set the y axis title and units
+            // set the y axis title and units
             var units = json.units;
             units  = units.replace(/\s+/g, '');//removes any spaces in the units
             if(units==null) {
                 units = "";
             }
 
-             var unit_off_bool = false
+            var unit_off_bool = false;
             unit_tracker.push(units);//tracks the units of the different time series
             //console.log(unit_tracker)
 
             unit_different2=null;
             same_unit = 1//goes to 2 when more than one unit type is graphed
-            yaxis=0 //tracks which dataset set goes on which axis
+            yaxis=0; //tracks which dataset set goes on which axis
             var y_title = 0;//tracks which variable to use for the yaxis title
-
-
-            if(unit_off == ''){
-                unit1 = unit_tracker[0];
-                if (unit1 !=units)//checks the first unit type agaisnt the current unit
-                {
-                  same_unit = 2;//flags which axis is to be used
-                    y_title = 1
-                  if(unit2 == null)
-                  {
-                      unit2 =units //this tracks the second unit type if there is one
-
-
-                  }
-                    if(units != unit2){
-                        same_unit = 3
-                        y_title = 3
-                    }
-                 };
-
-                }
-
-            else{
-                if(units != unit_off){
-                    if(units ==unit1){
-                        yaxis = 0
-                        y_title = 0
-                    }
-                    else if(resid_on == res_id){
-                        yaxis = 1
-                        y_title =1
-
-                    }
-                    else{
-                        unit_off_bool = true
-                        same_unit =2
-                        y_title = 3
-                    }
-
-                }
-
-
-            }
-
-            if (same_unit == 2 )
-            {
-
-                yaxis = 1;
-            }
 
             //
             var series =
@@ -223,10 +174,11 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
                 name:  'Site: '+json.site_name
                 +'. Variable: ' + json.variable_name,
                 data: [],
-                yAxis: yaxis,
-                animation:false
 
-            }
+                animation:false,
+                color: '#0000FF'
+
+            };
             //
             //// add the time series to the chart
             series.data = json.for_highchart;
@@ -247,30 +199,79 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
             }
 
 
-            //chart.legend.group.hide();
+            chart.legend.group.hide();
 
             number2 = number2+1//keeps track of row number for stats table
             number  = number2;
-            var site_name = json.site_name
-            var variable_name = json.variable_name
-            var unit = json.units
-            var organization = json.organization
-            var quality = json.quality
-            var method = json.method
-            var datatype = json.datatype
-            var valuetype = json.valuetype
-            var samplemedium = json.samplemedium
-            var count = json.count
-            var mean = json.mean
-            var median = json.median
-            var max = json.max
-            var min = json.min
-            var stdev = json.stdev
-            var timesupport = json.timesupport
-            var timeunit = json.timeunit
-            var sourcedescription = json.sourcedescription
-            var boxplot_count = number2
-            var boxplot = json.boxplot
+            add_row(0,res_id)
+            //end new table
+            console.log(number)
+            console.log(number1)
+            if (number == number1-1)//checks to see if all the data is loaded before displaying
+            {
+                $(window).resize();
+                chart.setTitle({ text: "CUAHSI Gap Filler Tool" });
+                $(window).resize();
+                finishloading();
+
+            }
+
+
+
+            $(window).resize();//This fixes an error where the grid lines are misdrawn when legend layout is set to vertical
+        },
+        error: function() {
+            show_error("Error loading time series from " + res_id);
+        }
+    });;;
+
+
+
+}
+var unit3 ='';
+var res = null;
+$("#app-content").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
+    function(event)
+    { if (event.originalEvent.propertyName == 'padding-right')
+    { $(window).resize();} });
+function myFunc(id,name)
+{
+    console.log("checking!!")
+    var chart1 = $('#ts-chart').highcharts();
+    var series = chart1.series[id];
+    if (series.visible ==true) {
+        series.hide();
+    }
+    else
+    {
+        series.show();
+    }
+}
+function add_row(row_counter,res_id){
+    data_url = base_url + 'gap-filler-tool/chart_data/' + res_id + '/';
+    $.ajax({
+        url: data_url,
+        success: function(json) {
+            var site_name = json.site_name;
+            var variable_name = json.variable_name;
+            var unit = json.units;
+            var organization = json.organization;
+            var quality = json.quality;
+            var method = json.method;
+            var datatype = json.datatype;
+            var valuetype = json.valuetype;
+            var samplemedium = json.samplemedium;
+            var count = json.count;
+            var mean = json.mean;
+            var median = json.median;
+            var max = json.max;
+            var min = json.min;
+            var stdev = json.stdev;
+            var timesupport = json.timesupport;
+            var timeunit = json.timeunit;
+            var sourcedescription = json.sourcedescription;
+            var boxplot_count = number2;
+            var boxplot = json.boxplot;
             if(site_name==null){
                 site_name = "N/A"
             }
@@ -295,10 +296,10 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
             if(unit==null){
                 unit= "N/A"
             }
-            if(timesupport==null){
+            if(timesupport==null || timesupport ==''){
                 timesupport= "N/A"
             }
-            if(timeunit==null){
+            if(timeunit==null|| timeunit ==''){
                 timeunit= "N/A"
             }
             if(sourcedescription==null){
@@ -308,141 +309,95 @@ function add_series_to_chart(chart,res_id,number1,unit_off) {
                 samplemedium= "N/A"
             }
 
-            if((unit1 != units && unit2 !=units)|| unit_off_bool == true  )//this triggers if more than 2 different units are used
-            {
 
-                var legend = "<div style='text-align:center'><input class = 'checkbox' id ="+number+" name ="+ units+" data-resid ="+res_id
-                + " type='checkbox' onClick ='myFunc(this.id,this.name);' >" + "</div"
-                var series = chart.series[number];
-                if (series.visible) {
-                    series.hide();
-                }
+            //chart.setTitle({ text: "CUAHSI Data Series Viewer" });
+            var legend = "<div style='text-align:center' '><input class = 'checkbox' id ="+row_counter +
+                " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
 
-                $('#multiple_units').html("")
-                $('#multiple_units').html("")
-                $('#multiple_units').append('* Only two types of units are displayed at a time.');
-                title = 1
-
-            }
-            else{
-                 //chart.setTitle({ text: "CUAHSI Data Series Viewer" });
-                var legend = "<div style='text-align:center' '><input class = 'checkbox' id ="+number+" name ="+ units+" data-resid ="+res_id
-                + " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
-            }
             var dataset = {legend:legend,organization:organization,name:site_name,variable:variable_name,unit:unit,samplemedium:samplemedium,count:count,//download:download,
                 quality:quality,method:method,datatype:datatype,valuetype:valuetype, timesupport:timesupport,timeunit:timeunit,
                 sourcedescription:sourcedescription,
-                mean:mean,median:median,max:max,min:min,stdev:stdev,boxplot:boxplot,boxplot_count:boxplot_count}
+                mean:mean,median:median,max:max,min:min,stdev:stdev,boxplot:boxplot,boxplot_count:boxplot_count};
 
             var table = $('#example2').DataTable();
             table.row.add(dataset).draw();
-            //table.row.add(dataset).draw();
-
-
-            //end new table
-
-
-
-
-            $(window).resize();//This fixes an error where the grid lines are misdrawn when legend layout is set to vertical
-        },
-        error: function() {
-            show_error("Error loading time series from " + res_id);
         }
-    });
-
-    $.ajax({
-        url: wps_url,
-        success: function(gap) {
-            number3 = number +1
-            console.log(gap.data)
-            // here we must check if the WPS execution was successful
-
-            // add the time series to the chart
-            var series = {
-                id: res_id +"gap",
-                zIndex:1,
-                name: 'Gap Filled',
-                data: gap.data,
-                color:'#FF0000'
-            }
-
-            // this part seems to be taking lots of time ...
-            chart.addSeries(series);
-
-
-
-            // //chart.setTitle({ text: "CUAHSI Data Series Viewer" });
-            //var legend = "<div style='text-align:center' '><input class = 'checkbox' id ="+number3+" name =gap data-resid ="+res_id
-            //+ " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
-            //
-            //var dataset = {legend:legend}
-            //
-            //var table = $('#example2').DataTable();
-            //table.row.add(dataset).draw();
-
-             if (number == number1-1)//checks to see if all the data is loaded before displaying
-            {
-                $(window).resize();
-                if(title ==1){
-                    chart.setTitle({ text: "CUAHSI Gap Filler Tool*" });
-                }
-                else{
-                    chart.setTitle({ text: "CUAHSI Gap Filler Tool" });
-                }
-                 $(window).resize();
-                finishloading();
-
-            }
-
-        }
-        })
+    })
 
 }
-var unit3 =''
-var res = null
-function myFunc(id,name)
-{
-    var chart1 = $('#ts-chart').highcharts();
-    var number_chk = $('.checkbox').length
-    var selected_box = document.getElementById(id)
-    var check_unit=[]
 
-    var chk_unit = document.getElementById(id).name;
+function clear_all(){
+    $('#stat_div').hide();
+    $('#ts-chart').hide();
+    $('#multiple_units').hide();
+    $('#loading').show();
 
-    var series = chart1.series[id];
-    res = selected_box.getAttribute("data-resid")
+    $('#ts-chart').highcharts().destroy();
+    var table = $('#example2').DataTable();
+    table
+        .clear()
+        .draw();
+    number2 = -1;
+    test_counter = 0;
+    addingseries();
+}
+test_counter =0
+function gap_filler(){
+    var chart = $('#ts-chart').highcharts();
+    number_series = chart.series
+    length_series = number_series.length
 
-    if (series.visible ==true) {
-        series.hide();
-    } else if (series.visible == false){
-        //first_unit =''
-        if (chk_unit != unit1 && chk_unit != unit2) {
+    console.log(length_series)
+    if( length_series== 2){
+        alert("Only one gap filled function allowed at a time.")
+    }
+    else {
+        $('#ts-chart').hide();
+        $('#stat_div').hide();
+        $('#button').hide();
+        $('#loading').show();
+        $('#multiple_units').hide();
+        $(window).resize();
+        var gap_function = document.querySelector('input[name = "gap_function"]:checked').value;
+        console.log(gap_function)
+        //$('#app-navigation').hide();
+        var res_id = find_query_parameter("res_id");
+        var wps_url = base_url + 'gap-filler-tool/wps/' + res_id + '/' + gap_function;
 
-            var test1 = 'Please select a unit type to hide.<br>' +
-                '<input type="radio" id ="r1" name ="units" value=' + unit1 + ' checked>' + unit1 + '<br>' +
-                '<input type="radio" id ="r2" name ="units" value=' + unit2 + '>' + unit2 + '<br>' +
-                '<button class="btn btn-danger" id="change_unit" onclick ="multipletime()" >submit</button>'
-            $('#' + id).attr('checked', false);
-            $('#hello2').html("")
-            $('#hello2').append(test1)
+        $.ajax({
+            url: wps_url,
+            success: function (gap) {
+                number3 = number + 1;
+                // here we must check if the WPS execution was successful
 
-            unit3 = chk_unit
-            var popupDiv = $('#hello');
-            popupDiv.modal('show');
-            check_unit.length = 0;
-        }
-        else
-        {
-            series.show();
-        }
+                // add the time series to the chart
 
+                console.log(test_counter)
+                if (test_counter == 0) {
+                    color = '#FF0000'
+                }
+                else {
+                    color = '#006400'
+                }
+                var series =
+                {
+                    id: res_id + "gap",
+                    zIndex: 1,
+                    name: gap_function + ' function',
+                    data: gap.data,
+                    color: color
+                };
+                test_counter = test_counter + 1
+                // this part seems to be taking lots of time ...
+                chart.addSeries(series);
+                add_row(1, res_id)
+                finishloading()
+            }
+        })
     }
 }
-
-
 var popupDiv = $('#welcome-popup');
-    //end new table
+//end new table
 $(document).ready(function (callback) {
     var res_id = find_query_parameter("res_id");
     if (res_id == null) {
@@ -453,13 +408,13 @@ $(document).ready(function (callback) {
     }
     //// initialize the chart and set chart height
     //$('#chartDiv').hide();
-    $('#ts-chart').hide()
+    $('#ts-chart').hide();
     $('#stat_div').hide();
     $('#button').hide();
     $('#loading').show();
     $('#multiple_units').hide();
-     $('#example2_length').html("")
-    $('#example2_filter').html("")
+    $('#example2_length').html("");
+    $('#example2_filter').html("");
 
 
     // add the series to the chart
@@ -468,54 +423,10 @@ $(document).ready(function (callback) {
 
     // change the app title
     document.title = 'Gap Filler Tool';
-})
-
-
-
-/* Formatting function for row details - modify as you need */
-function format ( d ) {
-    // `d` is the original data object for the row
-    console.log("fromattng!!!!!!!!!!!!!!!!")
-    name ='container'+ d.boxplot_count
-
-
-    return '<div id = "container'+ d.boxplot_count+'"class ="highcharts-boxplot" style = "float:right;height:250px;width:40%" ></div>'+
-
-    '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:100px; margin-left:8.5%;font-size: 9pt">'+
-
-        '<tr>'+
-            '<td>Quality Control:</td>'+
-            '<td>'+d.quality+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Method:</td>'+
-            '<td>'+d.method+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Data Type:</td>'+
-            '<td>'+ d.datatype+'</td>'+
-        '</tr>'+
-            '<tr>'+
-            '<td>Value Type:</td>'+
-            '<td>'+d.valuetype+'</td>'+
-        '</tr>'+
-            '<tr>'+
-            '<td>Time Support:</td>'+
-            '<td>'+d.timesupport+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Time Units:</td>'+
-            '<td>'+d.timeunit+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Source Description:</td>'+
-            '<td>'+d.sourcedescription+'</td>'+
-        '</tr>'+
-    '</table>';
-}
+});
 
 function box (number) {
-    var name = '#container'+number
+    var name = '#container'+number;
     $(name).highcharts({
         chart: {
 
@@ -542,51 +453,50 @@ function box (number) {
             }
         },
     });
-};
+}
 function finishloading(callback)
 {
-    $(window).resize()
+    $(window).resize();
     $('#stat_div').show();
     $('#ts-chart').show();
     $('#loading').hide();
     $('#multiple_units').show();
     $(window).resize()
 }
-function addingseries(unit_off){
-     var res_id = find_query_parameter("res_id");
-     var series_counter =0
+function addingseries(){
+    var res_id = find_query_parameter("res_id");
+    var series_counter =0;
 
     var page_height = $(document).height();
     if (page_height > 500) {
         chart_options.chart.height = page_height - 225;
     }
     $('#ts-chart').highcharts(chart_options);
-     var chart = $('#ts-chart').highcharts();
-    if (unit_off == null){
-        unit_off = ''
+    var chart = $('#ts-chart').highcharts();
+
+    if (res_id != null)
+    {
+        res_ids = res_id.split(",");
     }
-     if (res_id != null)
-	{
-     	res_ids = res_id.split(",");
-	}
-	else
-     {
-        res_ids =''
-         $('#loading').hide();
-     }
+    else
+    {
+        res_ids ='';
+        $('#loading').hide();
+    }
     for ( var r in res_ids)
     {
         series_counter = series_counter +1
     }
-    counter2 = 0
-     for  (var  res_id in res_ids)
+    counter2 = 0;
+    for  (var  res_id in res_ids)
     {
         counter1.push(counter);
-        add_series_to_chart(chart,res_ids[res_id],series_counter,unit_off); //highchart
+        console.log("add series")
+        add_series_to_chart(chart,res_ids[res_id],series_counter); //highchart
         //add_series_to_chart1(chart, res_ids[res_id],series_counter); //zing chart
-        counter2 = counter2+1
+        counter2 = counter2+1;
         //console.log(counter2)
-    };
+    }
 }
 function multipletime()
 {
@@ -598,15 +508,19 @@ function multipletime()
     $('#loading').show();
     var unit_off = document.querySelector('input[name = "units"]:checked').value;
     unit1 = document.querySelector('input[name = "units"]:not(:checked)').value;
-    unit2 = unit3
-    resid_on = res
-    number2 = -1
+    unit2 = unit3;
+    resid_on = res;
+    number2 = -1;
     $('#ts-chart').highcharts().destroy();
     //var table = $('#example2').DataTable();
     //table
     //.clear()
     //.draw();
-    addingseries(unit_off);
+    $('#stat_div').hide();
+    $('#ts-chart').hide();
+    $('#multiple_units').hide();
+    $('#loading').show();
+    addingseries();
 
 }
 

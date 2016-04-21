@@ -7,14 +7,17 @@ from owslib.wps import monitorExecution
 from owslib.wps import WPSExecution
 from app import GapFillerTool
 
-def run_wps(res_ids):
-    print"launch wps"
-    print res_ids
+def run_wps(res_ids,gap):
+
+    if (gap ==''):
+        gap = "linear"
+
     # checks if there is two resource IDs
     resources = res_ids.split("_")
-
+    print gap
+    print "888888888888888888888888888888888888888888888888888888"
     process_id = 'org.n52.wps.server.r.gap_filler'
-    process_input = [('resource_id',str(resources[0]))]
+    process_input = [('resource_id',str(resources[0])),('fill_function',str(gap))]
 
     #setting the WPS URL is set in app.py
     url_wps = GapFillerTool.wps_url + '/WebProcessingService'

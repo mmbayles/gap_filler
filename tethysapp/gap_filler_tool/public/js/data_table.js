@@ -70,6 +70,7 @@ var data =[]
 //    var table = $('#example1').DataTable();
 //    table.row.add(dataset).draw();
 //} );
+var counter = 0
 $(document).ready(function (callback) {
     var table = $('#example2').DataTable({
         //destroy: true,
@@ -78,12 +79,24 @@ $(document).ready(function (callback) {
         "createdRow": function (row, data, dataIndex) {
             var chart = $('#ts-chart').highcharts();
             //console.log("created")
-            $('td', row).eq(0).css("backgroundColor", chart.series[number].color)
+            console.log(row)
+            console.log(data)
+            console.log(dataIndex)
+            if (dataIndex == 0){
+                 $('td', row).eq(0).css("backgroundColor", '#0000FF')
+            }
+           else if(dataIndex ==1){
+                $('td', row).eq(0).css("backgroundColor", '#FF0000')
+            }
+            else{
+                $('td', row).eq(0).css("backgroundColor", '#006400')
+            }
             $('td', row).eq(1).each(function () {
                 var sTitle;
                 sTitle = "Click here to see more data"
                 this.setAttribute('title', sTitle);
             });
+            counter = counter =1
 
             var table = $('#example2').DataTable()
             table.$('td').tooltip({
@@ -123,6 +136,7 @@ $(document).ready(function (callback) {
     });
     // Add event listener for opening and closing details
     $('#example2 tbody').on('click', 'td.details-control', function () {
+        console.log("click")
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         if (row.child.isShown() == true) {
@@ -164,7 +178,7 @@ $(document).ready(function (callback) {
 function format ( d ) {
     // `d` is the original data object for the row
     name ='container'+ d.boxplot_count
-
+    console.log("hi world")
 
     return '<div id = "container'+ d.boxplot_count+'"class ="highcharts-boxplot" style = "float:right;height:250px;width:40%" ></div>'+
 
