@@ -8,7 +8,7 @@ class GapFillerTool(TethysAppBase):
 
     name = 'Gap Filler Tool'
     index = 'gap_filler_tool:home'
-    icon = 'gap_filler_tool/images/icon.gif'
+    icon = 'gap_filler_tool/images/puzzle.png'
     package = 'gap_filler_tool'
     root_url = 'gap-filler-tool'
     color = '#1abc9c'

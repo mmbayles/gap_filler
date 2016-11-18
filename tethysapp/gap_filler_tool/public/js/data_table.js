@@ -72,25 +72,60 @@ var data =[]
 //} );
 var counter = 0
 $(document).ready(function (callback) {
+
     var table = $('#example2').DataTable({
         //destroy: true,
         //"bDestroy": true,
         //bRetrieve: true ,
         "createdRow": function (row, data, dataIndex) {
-            var chart = $('#ts-chart').highcharts();
-            //console.log("created")
-            console.log(row)
-            console.log(data)
+           color1 = null
             console.log(dataIndex)
-            if (dataIndex == 0){
-                 $('td', row).eq(0).css("backgroundColor", '#0000FF')
+            number = dataIndex
+            if (number == 0 || number%10 ==0) {
+                color1 = "#ec3131"
             }
-           else if(dataIndex ==1){
-                $('td', row).eq(0).css("backgroundColor", '#FF0000')
+            if (number == 1|| number%10 ==1) {
+                color1 = "#2cc52e"
             }
-            else{
-                $('td', row).eq(0).css("backgroundColor", '#006400')
+            if (number == 2|| number%10 ==2) {
+                color1 = "#313eec"
             }
+            if (number == 3|| number%10 ==3) {
+                color1 = "#dd25d5"
+            }
+            if (number == 4|| number%10 ==4) {
+                color1 = "#0d0c0d"
+            }
+            if (number == 5|| number%10 ==5) {
+                color1 = "#31cbec"
+            }
+            if (number == 6|| number%10 ==6) {
+                color1 = "#fb8915"
+            }
+            if (number == 7|| number%10 ==7) {
+                color1 = "#ffb8e7"
+            }
+            if (number == 8|| number%10 ==8) {
+                color1 = "#fbfd07"
+            }
+            if (number == 9|| number%10 ==9) {
+                color1 = "#660099"
+            }
+
+            //console.log("created")
+            //console.log(row)
+            //console.log(data)
+            //console.log(dataIndex)
+            $('td', row).eq(0).css("backgroundColor",color1)
+           // if (dataIndex == 0){
+           //      $('td', row).eq(0).css("backgroundColor", '#2cc52e')
+           // }
+           //else if(dataIndex ==1){
+           //     $('td', row).eq(0).css("backgroundColor", '#FF0000')
+           // }
+           // else{
+           //     $('td', row).eq(0).css("backgroundColor", '#006400')
+           // }
             $('td', row).eq(1).each(function () {
                 var sTitle;
                 sTitle = "Click here to see more data"

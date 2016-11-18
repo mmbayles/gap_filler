@@ -44,7 +44,45 @@ def chart_data(request, res_id):
 def home(request):
 
     print datetime.now()
-    context = {}
+    ids=[]
+    meta =[]
+    source=[]
+
+    quality=[]
+    method=[]
+    sourceid=[]
+    data = request.META['QUERY_STRING']
+    data = data.encode(encoding ='UTF-8')
+    print data
+    data  =data.split('&')
+    for e in data:
+        s= e.split('=')
+        meta.append(s)
+    print data
+    print meta
+    for e in meta:
+        print e[0]
+        if e[0] == 'Source':
+            source.append(e[1])
+        if e[0] == 'WofUri':
+            ids.append(e[1])
+        if e[0] == 'QCLID':
+            quality.append(e[1])
+        if e[0] == 'MethodId':
+            method.append(e[1])
+        if e[0] == 'SourceId':
+            sourceid.append(e[1])
+
+
+
+
+
+
+    context = {'source':source,
+               'cuahsi_ids':ids,
+               'quality':quality,
+               'method':method,
+               'sourceid':sourceid}
     return render(request, 'gap_filler_tool/home.html', context)
 def r_script(request, res_ids):
 
@@ -52,12 +90,13 @@ def r_script(request, res_ids):
     resources = res_ids.split("_")
 
     wps_url = GapFillerTool.wps_url
-    script_url = wps_url + 'R/scripts/' + 'GapFiller.R'
+    script_url = wps_url + 'R/scripts/' + 'TimeSeriesGapFiller.r'
+    print script_url
     output_data = requests.get(script_url)
     output_text = output_data.content
 
     # replace the resource_IDs in the script
-    output_text = output_text.replace('cuahsi-wdc-2016-04-12-71940231', resources[0])
+    output_text = output_text.replace('cuahsi-wdc-2016-07-20-65435078', resources[0])
 
 
     resp = HttpResponse(output_text, content_type="text/plain; charset=utf-8")

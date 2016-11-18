@@ -1,3 +1,6 @@
+#app-content-wrapper{
+	overflow:inherit !important;
+}
 #url_name {
 width:700px;
 }
